@@ -4,4 +4,8 @@ if ActiveRecord::Migrator.needs_migration?
   raise 'Migrations are pending. Run `rake db:migrate` to resolve the issue.'
 end
 
+use Rack::MethodOverride
+
+use items_controller
+use sessions_controller
 run ApplicationController
