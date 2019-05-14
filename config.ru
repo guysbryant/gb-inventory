@@ -6,6 +6,6 @@ end
 
 use Rack::MethodOverride
 
-use items_controller
-use sessions_controller
+use ItemsController
+use SessionsController
 run ApplicationController
