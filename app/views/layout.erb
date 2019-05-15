@@ -16,7 +16,9 @@
   </head>
   <body>
   <nav>
-    <a href="/logout">Logout</a>
+    <% if session[:username] %>
+      <a href="/logout">Logout</a>
+    <% end %>
   </nav>
     <div class="wrapper">
     <% if flash[:error] %>
