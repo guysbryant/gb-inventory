@@ -14,13 +14,21 @@ class SessionsController < ApplicationController
 
     #signup
     get "/signup" do 
-        erb :"signup"
+        erb :"/sessions/signup"
     end
 
     post "/signup" do 
         #create user
+        @user = User.new(params)
+        if @user.save
+            session[:user] = @user.username
+            redirect "/index"
+        else
+        end
 
         #add user to session and redirect or redirect to signup with flash message
+
+        
     end
 
     #logout
