@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
         @user = User.new(params)
         if @user.save
             session[:user] = @user.username
-            redirect "/index"
+            redirect "/inventory/show"
         else
         end
 
