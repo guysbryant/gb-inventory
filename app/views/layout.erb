@@ -12,9 +12,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link rel="stylesheet" href="/stylesheets/custom.css" />
   </head>
   <body>
     <div class="wrapper">
+    <% if flash[:error] %>
+      <h3 class="error"><%= flash[:error] %></h3>
+    <% end %>
 
         <%= yield %>
 
