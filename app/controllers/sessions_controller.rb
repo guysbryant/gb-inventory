@@ -20,17 +20,15 @@ class SessionsController < ApplicationController
     post "/signup" do 
         #create user
         @user = User.new(params)
+
+        #add user to session and redirect or redirect to signup with flash message
         if @user.save
             session[:user] = @user.username
-            redirect "/inventory/show"
+            redirect "/inventory/show/#{@user.id}"
         else
             flash[:error] = "Couldn't create the account: #{@user.errors.full_messages.to_sentence}"
             redirect "/signup"
         end
-
-        #add user to session and redirect or redirect to signup with flash message
-
-        
     end
 
     #logout
