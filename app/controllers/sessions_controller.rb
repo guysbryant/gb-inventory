@@ -16,8 +16,6 @@ class SessionsController < ApplicationController
             flash[:error] = "Couldn't log you in with those credentials. Try again or create an account."
             redirect "/login"
         end
-
-        #-add to session and redirect || redirect to login again
     end
 
     #signup
@@ -31,7 +29,7 @@ class SessionsController < ApplicationController
 
         #add user to session and redirect or redirect to signup with flash message
         if @user.save
-            session[:user] = @user.username
+            session[:username] = @user.username
             redirect "/inventory/show/#{@user.id}"
         else
             flash[:error] = "Couldn't create the account: #{@user.errors.full_messages.to_sentence}"
