@@ -23,6 +23,18 @@ class ItemsController < ApplicationController
         erb :"/items/index"
     end
 
+    #view individual items' show page
+    get "/inventory/item/:id" do 
+        @item = Item.find(params[:id])
+        erb :"/items/show"
+    end
+
+    patch "/inventory/item/:id" do 
+        @item = Item.find(params[:id])
+        @item.update(name: params[:name])
+        redirect "/inventory/index/#{current_user.id}"
+    end
+
     #update an item 
 
     #delete an item

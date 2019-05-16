@@ -1,5 +1,7 @@
+<h3><%= @user.username %></h3>
 <a href="/items/new">Add a new item</a>
-<%= @user.username %>
+<p>
 <% @user.items.each do |item| %>
-    <h3><%= item.name %></h3>
+    <p>
+    <a href="/inventory/item/<%= item.id %>"><%= item.name %></a>
 <% end %>
