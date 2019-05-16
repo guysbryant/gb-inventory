@@ -29,13 +29,19 @@ class ItemsController < ApplicationController
         erb :"/items/show"
     end
 
-    patch "/inventory/item/:id" do 
+    #update an item 
+    patch "/inventory/item/:id/edit" do 
         @item = Item.find(params[:id])
         @item.update(name: params[:name])
         redirect "/inventory/index/#{current_user.id}"
     end
 
-    #update an item 
 
     #delete an item
+    delete "/inventory/item/:id" do 
+        @item = Item.find(params[:id])
+        @item.delete
+        redirect "/inventory/index/#{current_user.id}"
+    end
+
 end
