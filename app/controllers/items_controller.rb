@@ -9,7 +9,7 @@ class ItemsController < ApplicationController
         @item = Item.new(name: params[:name], user_id: current_user.id)
 
         if @item.save
-            redirect "/inventory/show/#{current_user.id}"
+            redirect "/inventory/index/#{current_user.id}"
         else
             flash[:error] = "Couldn't add item: #{@item.errors.full_messages.to_sentence}"
             redirect "/items/new"
@@ -18,9 +18,9 @@ class ItemsController < ApplicationController
     end
 
     #view all items in user's inventory
-    get "/inventory/show/:id" do 
+    get "/inventory/index/:id" do 
         @user = User.find(params[:id])
-        erb :"/items/show"
+        erb :"/items/index"
     end
 
     #update an item 
