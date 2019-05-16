@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
     post "/items/new" do 
         #create item
-        @item = Item.new(params)
+        @item = Item.new(name: params[:name], user_id: current_user.id)
 
         if @item.save
             redirect "/inventory/show/#{current_user.id}"
