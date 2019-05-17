@@ -4,4 +4,7 @@
 <% @user.items.each do |item| %>
     <p>
     <a href="/inventory/item/<%= item.id %>"><%= item.name %></a>
+    <% if item.quantity %>
+        <%= item.quantity %>
+    <% end %>
 <% end %>

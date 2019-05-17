@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
     post "/items/new" do 
         #create item
-        @item = Item.new(name: params[:name], user_id: current_user.id)
+        @item = Item.new(name: params[:name], quantity: params[:quantity], user_id: current_user.id)
         item_exists?(@item.name) 
 
         if @item.save
@@ -32,8 +32,14 @@ class ItemsController < ApplicationController
     #update an item 
     patch "/inventory/item/:id/edit" do 
         @item = Item.find(params[:id])
-        item_exists?(@item.name) 
-        @item.update(name: params[:name])
+        my_items = current_user.items.map{|item| item if item.name != @item.name}
+        my_items.each do |item|
+        if item && item.name == params[:name]
+          flash[:error] = "Couldn't add item: Item already in inventory."
+          redirect "/inventory/item/#{@item.id}"
+        end
+      end
+        @item.update(name: params[:name], quantity: params[:quantity])
         redirect "/inventory/index/#{current_user.id}"
     end
 
