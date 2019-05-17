@@ -15,7 +15,6 @@ class ItemsController < ApplicationController
             flash[:error] = "Couldn't add item: #{@item.errors.full_messages.to_sentence}"
             redirect "/items/new"
         end
-
     end
 
     #view all items in user's inventory
