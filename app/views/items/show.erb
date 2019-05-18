@@ -1,4 +1,14 @@
-<%= @item.name %>
+<div id="overlay" class="overlay">
+    <div class="center">
+        <p>Are you sure you want to remove <%= @item.name %> from inventory?
+        <form class="inline" action="/inventory/item/<%= @item.id %>" method="post">
+            <input type="hidden" name="_method" value="delete">
+            Click   <input class="delete inline" type="submit" value="Delete">
+        </form> to permanently delete <%= @item.name %>.
+        <p>
+        <p>Click anywhere else to cancel.</p> 
+    </div>
+</div>
 
 <form action="/inventory/item/<%= @item.id %>/edit" method="post">
     <input type="hidden" name="_method" value="patch">
@@ -11,7 +21,4 @@
     <input type="submit" value="Update Item">
 </form>
 
-<form action="/inventory/item/<%= @item.id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="Delete Entry">
-</form> 
+    <input class="delete" id="delete" type="submit" value="Delete Item">
