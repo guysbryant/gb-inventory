@@ -1,5 +1,5 @@
 <h3 class="username-inventory"><%= @user.username %>'s Inventory</h3>
-<a href="/items/new">Add a new item</a>
+<a class="add-new-item" href="/items/new"><button type="button">Add a new item</button></a>
 <p>
     <table>
         <thead>
@@ -12,9 +12,9 @@
         <tbody>
             <% @user.items.each do |item| %>
                 <tr>
-                    <td><a href="/inventory/item/<%= item.id %>"><%= item.name %></a></td>
+                    <td><a href="/inventory/item/<%= item.id %>"><%= item.name.titlecase %></a></td>
                     <td><%= item.quantity %></td>
-                    <td><%= item.details %></td>
+                    <td><%= item.details.capitalize %></td>
                 </tr>
             <% end %>
         </tbody>
