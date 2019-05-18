@@ -1,3 +1,32 @@
 .error {
+    color: green;
+}
+
+.pink {
     color: red;
 }
+
+a {
+    text-decoration: none;
+}
+/* a:visited {
+}
+a:link {
+} */
+
+/* spacing */
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border: 3px solid purple;
+  }
+  
+  th, td {
+    padding: 10px;
+  }
+
+  tbody, td {
+      text-align: center;
+  }
+
