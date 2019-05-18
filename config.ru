@@ -6,6 +6,7 @@ end
 
 use Rack::MethodOverride
 
+use DepartmentController
 use ItemsController
 use SessionsController
 run ApplicationController

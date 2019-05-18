@@ -1,0 +1,6 @@
+<form action="/department/<%= @department.id %>/edit" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Name:</label>
+    <input id="name" type="text" name="name" value="<%= @department.name %>">
+    <input type="submit" value="Update">
+</form>

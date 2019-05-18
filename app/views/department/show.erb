@@ -1,0 +1,7 @@
+<a href="/department/index"><button type="submit">View All Departments</button></a>
+<h1><%= @department.name %></h1>
+<a href="/department/<%= @department.id %>/edit"><button type="submit">Update</button>
+<form action="/department/<%= @department.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input class="delete" type="submit" value="delete">
+</form>
