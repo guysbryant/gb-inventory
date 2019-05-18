@@ -1,0 +1,15 @@
+<%= @item.name %>
+
+<form action="/inventory/item/<%= @item.id %>/edit" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <label for="name">Item Name:</label>
+    <input id="name" type="text" name="name" value="<%= @item.name %>">
+    <label for="quantity">Item quantity</label>
+    <input id="quantity" type="text" name="quantity" value="">
+    <input type="submit" value="Update Item">
+</form>
+
+<form action="/inventory/item/<%= @item.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Entry">
+</form> 
