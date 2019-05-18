@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
     post "/login" do 
         #find the user in activerecord
-        @user = User.find_by(username: params[:username].titlecase)
+        @user = User.find_by(username: params[:username])
 
         #authenticate user
         if @user && @user.authenticate(params[:password])
@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
 
     post "/signup" do 
         #create user
-        @user = User.new(username: params[:username].titlecase, password: params[:password])
+        @user = User.new(username: params[:username], password: params[:password])
 
         #add user to session and redirect or redirect to signup with flash message
         if @user.save

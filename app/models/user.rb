@@ -3,5 +3,6 @@ class User < ActiveRecord::Base
     validates :username, presence: true 
     validates :username, uniqueness: true 
 
-    has_many :items
+    has_many :departments, through: :user_departments
+    has_many :user_departments
 end

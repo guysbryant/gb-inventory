@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base 
-    belongs_to :user
+    belongs_to :department
 
     validates :name, presence: true
 end
