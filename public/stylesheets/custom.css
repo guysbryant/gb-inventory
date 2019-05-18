@@ -1,18 +1,17 @@
 .error {
-    color: green;
+    color: red;
 }
 
-.pink {
-    color: red;
+.username-inventory {
+    text-align: center;
 }
 
 a {
     text-decoration: none;
 }
-/* a:visited {
+a:visited {
+    color: grey;
 }
-a:link {
-} */
 
 /* spacing */
 
