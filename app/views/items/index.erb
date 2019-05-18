@@ -1,10 +1,21 @@
 <h3><%= @user.username %></h3>
 <a href="/items/new">Add a new item</a>
 <p>
-<% @user.items.each do |item| %>
-    <p>
-    <a href="/inventory/item/<%= item.id %>"><%= item.name %></a>
-    <% if item.quantity %>
-        <%= item.quantity %>
-    <% end %>
-<% end %>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="1">Name</th>
+                <th colspan="1">Quantity</th>
+                <th colspan="1">Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @user.items.each do |item| %>
+                <tr>
+                    <td><a href="/inventory/item/<%= item.id %>"><%= item.name %></a></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.details %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
