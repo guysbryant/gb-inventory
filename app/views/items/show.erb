@@ -5,7 +5,9 @@
     <label for="name">Item Name:</label>
     <input id="name" type="text" name="name" value="<%= @item.name %>">
     <label for="quantity">Item quantity</label>
-    <input id="quantity" type="text" name="quantity" value="">
+    <input id="quantity" type="text" name="quantity" value="<%= @item.quantity %>">
+    <label for="details">Item Details</label>
+    <input id="details" type="text" name="details" value="<%= @item.details %>">
     <input type="submit" value="Update Item">
 </form>
 
