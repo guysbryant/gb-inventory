@@ -6,7 +6,7 @@ class ItemsController < ApplicationController
 
     post "/items/new" do 
         #create item
-        @item = Item.new(name: params[:name], quantity: params[:quantity], user_id: current_user.id)
+        @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], user_id: current_user.id)
         item_exists?(@item.name) 
 
         if @item.save
@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
           redirect "/inventory/item/#{@item.id}"
         end
       end
-        @item.update(name: params[:name], quantity: params[:quantity])
+        @item.update(name: params[:name], quantity: params[:quantity], details: params[:details])
         redirect "/inventory/index/#{current_user.id}"
     end
 
