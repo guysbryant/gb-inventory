@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
         #authenticate user
         if @user && @user.authenticate(params[:password])
             session[:username] = @user.username
-            redirect "/inventory/index/#{@user.id}"
+            redirect "/inventory/index"
+            # redirect "/inventory/index/#{@user.id}"
         else
             flash[:error] = "Couldn't log you in with those credentials. Try again or create an account."
             redirect "/login"

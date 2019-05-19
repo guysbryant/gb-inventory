@@ -6,11 +6,12 @@ class ItemsController < ApplicationController
 
     post "/items/new" do 
         #create item
-        @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], user_id: current_user.id)
-        item_exists?(@item.name) 
+        @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: department(params[:department_name]))
+        # item_exists?(@item.name) 
 
         if @item.save
-            redirect "/inventory/index/#{current_user.id}"
+            redirect "/inventory/index"
+            # redirect "/inventory/index/#{current_user.id}"
         else
             flash[:error] = "Couldn't add item: #{@item.errors.full_messages.to_sentence}"
             redirect "/items/new"
@@ -18,8 +19,8 @@ class ItemsController < ApplicationController
     end
 
     #view all items in user's inventory
-    get "/inventory/index/:id" do 
-        @user = User.find(params[:id])
+    get "/inventory/index" do 
+        # @user = User.find(params[:id])
         erb :"/items/index"
     end
 
@@ -32,15 +33,16 @@ class ItemsController < ApplicationController
     #update an item 
     patch "/inventory/item/:id/edit" do 
         @item = Item.find(params[:id])
-        my_items = current_user.items.map{|item| item if item.name != @item.name}
-        my_items.each do |item|
-        if item && item.name == params[:name]
-          flash[:error] = "Couldn't add item: Item already in inventory."
-          redirect "/inventory/item/#{@item.id}"
-        end
-      end
-        @item.update(name: params[:name], quantity: params[:quantity], details: params[:details])
-        redirect "/inventory/index/#{current_user.id}"
+        # my_items = current_user.items.map{|item| item if item.name != @item.name}
+        # my_items.each do |item|
+        #     if item && item.name == params[:name]
+        #         flash[:error] = "Couldn't add item: Item already in inventory."
+        #         redirect "/inventory/item/#{@item.id}"
+        #     end
+        # end
+        @item.update(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: department(params[:department_name]))
+        redirect "/inventory/index"
+        # redirect "/inventory/index/#{current_user.id}"
     end
 
 
