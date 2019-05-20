@@ -17,9 +17,8 @@
   </head>
   <body>
   <nav>
-    <% if session[:username] %>
+    <% if logged_in? %>
       <a href="/logout">Logout</a>
-      <a href="/inventory/index">Inventory Listing</a>
       <a href="/department/index">Department Listing</a>
     <% end %>
   </nav>
