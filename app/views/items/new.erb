@@ -1,6 +1,6 @@
 <h2>New Item</h2>
 
-<form action="/items/new" method="post">
+<form action="/department/inventory/new" method="post">
     <label for="name">Item Name</label>
     <input id="name" type="text" name="name" value="">
     <label for="quantity">Item quantity</label>
@@ -8,6 +8,6 @@
     <label for="details">Item Details</label>
     <input id="details" type="text" name="details" value="">
     <label for="department_name">Department:</label>
-    <input id="department_name" type="text" name="department_name" value="">
+    <input id="department_name" type="text" name="department_name" value="<%= @department.name %>">
     <input type="submit" value="Add New Item">
 </form>

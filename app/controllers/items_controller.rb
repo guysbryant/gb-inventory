@@ -1,4 +1,16 @@
 class ItemsController < ApplicationController 
+    #add item to department inventory
+    get "/department/:id/inventory/new" do 
+        @department = Department.find(params[:id])
+        erb :"/items/new"
+    end
+
+    post "/department/inventory/new" do 
+        @department = Department.find_by(name: params[:department_name])
+        @item = Item.create(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
+        redirect "/department/show/#{@department.id}"
+    end
+
     #add item to inventory
     get "/items/new" do 
         erb :"/items/new"
@@ -22,6 +34,19 @@ class ItemsController < ApplicationController
     get "/inventory/index" do 
         # @user = User.find(params[:id])
         erb :"/items/index"
+    end
+
+    get "/department/inventory/item/:id" do 
+        @item = Item.find(params[:id])
+        @department = Department.find(@item.department.id)
+        erb :"/items/show"
+    end
+
+    patch "/department/inventory/item/:id" do 
+        @item = Item.find(params[:id])
+        @department = Department.find(@item.department.id)
+        @item.update(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
+        redirect "/department/inventory/show" 
     end
 
     #view individual items' show page
