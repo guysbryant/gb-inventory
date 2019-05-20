@@ -7,7 +7,7 @@ class DepartmentController < ApplicationController
         @department = Department.new(name: params[:name])
 
         if @department.save
-            redirect "/department/show/#{@department.id}"
+            redirect "/department/#{@department.id}"
         else
             flash[:error] = "Couldn't create department: #{@department.errors.full_messages.to_sentence}"
             redirect "/department/new"
@@ -18,7 +18,7 @@ class DepartmentController < ApplicationController
         erb :"department/index"
     end
 
-    get "/department/show/:id" do 
+    get "/department/:id" do 
         @department = Department.find(params[:id])
         erb :"/department/show"
     end
@@ -33,11 +33,11 @@ class DepartmentController < ApplicationController
         Department.all.each do |department|
             if department && department.name == params[:name]
                 flash[:error] = "That department already exists."
-                redirect "/department/show/#{@department.id}"
+                redirect "/department/#{@department.id}"
             end
         end
         @department.update(name: params[:name])
-        redirect "/department/show/#{@department.id}"
+        redirect "/department/#{@department.id}"
     end
 
     delete "/department/:id" do 
