@@ -51,7 +51,8 @@ class ItemsController < ApplicationController
     delete "/department/inventory/item/:id" do 
         login_required
         @item = Item.find(params[:id])
+        @department = Department.find_by(@item.department.id)
         @item.delete
-        redirect "/department/inventory/index"
+        redirect "/department/#{@department.id}/inventory/index"
     end
 end
