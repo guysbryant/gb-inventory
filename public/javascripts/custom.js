@@ -1,5 +1,4 @@
 window.onload = function(){
-    // let add_new_item = document.getElementsByClassName("add-new-item")[0]
     let delete_button = document.getElementById("delete")
     delete_button.addEventListener("click", function(){
     let overlay = document.getElementById("overlay")
