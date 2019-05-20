@@ -10,6 +10,7 @@
     </div>
 </div>
 
+<h2>Update <%= @department.name.titlecase %>: <%= @item.name.titlecase %></h2>
 <form action="/department/inventory/item/<%= @item.id %>/edit" method="post">
     <input type="hidden" name="_method" value="patch">
     <label for="name">Item Name:</label>
@@ -18,8 +19,6 @@
     <input id="quantity" type="text" name="quantity" value="<%= @item.quantity %>">
     <label for="details">Item Details</label>
     <input id="details" type="text" name="details" value="<%= @item.details %>">
-    <label for="department_name">Department:</label>
-    <input id="department_name" type="text" name="department_name" value="<%= @department.name %>">
     <input type="submit" value="Update Item">
 </form>
 
