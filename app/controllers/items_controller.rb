@@ -48,5 +48,4 @@ class ItemsController < ApplicationController
         @item.delete
         redirect "/department/inventory/index"
     end
-
 end
