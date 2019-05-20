@@ -1,27 +1,8 @@
-<%# <a href="/department/index"><button type="submit">View All Departments</button></a> %>
 <h1><%= @department.name.titlecase %></h1>
-<a href="/department/<%= @department.id %>/edit"><button type="submit">Update</button></a>
+<a href="/department/<%= @department.id %>/edit"><button type="submit">Change Deptartment Name</button></a>
 <form action="/department/<%= @department.id %>" method="post">
     <input type="hidden" name="_method" value="delete">
-    <input class="delete" type="submit" value="delete">
+    <input class="delete" type="submit" value="Delete Department">
 </form>
 
-<a href="/department/<%= @department.id %>/inventory/new"><button type="submit">Add New Item</button></a>
-<table>
-    <thead>
-        <tr>
-            <th colspan="1">Name</th>
-            <th colspan="1">Quantity</th>
-            <th colspan="1">Details</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @department.items.each do |item| %>
-            <tr>
-                <td><a href="/department/inventory/item/<%= item.id %>"><%= item.name.titlecase %></a></td>
-                <td><%= item.quantity %></td>
-                <td><%= item.details.capitalize %></td>
-            </tr>
-        <% end %>
-    </tbody>
-</table>
+<a href="/department/<%= @department.id %>/inventory/index"><button type="submit">View Department Inventory</button></a>
