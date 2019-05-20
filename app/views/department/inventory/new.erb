@@ -1,6 +1,6 @@
 <h2>Add A New Item To <%= @department.name %></h2>
 
-<form action="/department/inventory/new" method="post">
+<form action="/department/<%= @department.id %>/inventory/new" method="post">
     <label for="name">Item Name</label>
     <input id="name" type="text" name="name" value="">
     <label for="quantity">Item quantity</label>

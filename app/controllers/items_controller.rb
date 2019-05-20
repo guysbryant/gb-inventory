@@ -6,9 +6,9 @@ class ItemsController < ApplicationController
         erb :"department/inventory/new"
     end
 
-    post "/department/inventory/new" do 
+    post "/department/:id/inventory/new" do 
         login_required
-        @department = Department.find_by(name: params[:department_name])
+        @department = Department.find(params[:id])
         @item = Item.create(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
         redirect "/department/#{@department.id}/inventory/index"
     end
