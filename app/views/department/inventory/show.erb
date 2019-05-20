@@ -1,6 +1,6 @@
 <div id="overlay" class="overlay">
     <div class="center">
-        <p>Are you sure you want to remove <%= @item.name %> from inventory?
+        <p>Are you sure you want to remove <%= @item.name.titlecase %> from <%= @department.name %> inventory?
         <form class="inline" action="/department/inventory/item/<%= @item.id %>" method="post">
             <input type="hidden" name="_method" value="delete">
             Click   <input class="delete inline" type="submit" value="Delete">
