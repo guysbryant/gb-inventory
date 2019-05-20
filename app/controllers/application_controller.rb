@@ -12,7 +12,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :welcome
+    if session[:username]
+      redirect "/department/index"
+    else
+      erb :welcome
+    end
   end
 
   helpers do 
@@ -20,12 +24,14 @@ class ApplicationController < Sinatra::Base
       @current_user ||= User.find_by(username: session[:username])
     end
 
-    def item_exists?(item_name)
-      current_user.items.each do |item|
-        if item_name == item.name 
-          flash[:error] = "Couldn't add item: Item already in inventory."
-          redirect "/items/new"
-        end
+    def logged_in? 
+      !!current_user
+    end
+
+    def login_required
+      if !logged_in? 
+        flash[:error] = "Must be logged in"
+        redirect "/"
       end
     end
   end

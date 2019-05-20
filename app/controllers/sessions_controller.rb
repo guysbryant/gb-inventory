@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     post "/login" do 
         #find the user in activerecord
         @user = User.find_by(username: params[:username])
-
         #authenticate user
         if @user && @user.authenticate(params[:password])
             session[:username] = @user.username
@@ -27,11 +26,10 @@ class SessionsController < ApplicationController
     post "/signup" do 
         #create user
         @user = User.new(username: params[:username], password: params[:password])
-
         #add user to session and redirect or redirect to signup with flash message
         if @user.save
             session[:username] = @user.username
-            redirect "/inventory/index/#{@user.id}"
+            redirect "/"
         else
             flash[:error] = "Couldn't create the account: #{@user.errors.full_messages.to_sentence}"
             redirect "/signup"
@@ -41,6 +39,7 @@ class SessionsController < ApplicationController
     #logout
     get "/logout" do 
         #clear session
+        login_required
         session.clear
         redirect "/"
     end

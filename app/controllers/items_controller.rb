@@ -1,11 +1,13 @@
 class ItemsController < ApplicationController 
     #add item to department inventory
     get "/department/:id/inventory/new" do 
+        login_required
         @department = Department.find(params[:id])
         erb :"department/inventory/new"
     end
 
     post "/department/inventory/new" do 
+        login_required
         @department = Department.find_by(name: params[:department_name])
         @item = Item.create(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
         redirect "/department/#{@department.id}/inventory/index"
@@ -13,12 +15,14 @@ class ItemsController < ApplicationController
 
     #view department's inventory
     get "/department/:id/inventory/index" do 
+        login_required
         @department = Department.find(params[:id])
         erb :"/department/inventory/index"
     end
 
     #view item details
     get "/department/inventory/item/:id" do 
+        login_required
         @item = Item.find(params[:id])
         @department = Department.find(@item.department.id)
         erb :"/department/inventory/show"
@@ -26,6 +30,7 @@ class ItemsController < ApplicationController
 
     #update item details
     patch "/department/inventory/item/:id/edit" do 
+        login_required
         @item = Item.find(params[:id])
         @department = Department.find(@item.department.id)
         #get all department inventory except for the currently selected item
@@ -44,6 +49,7 @@ class ItemsController < ApplicationController
 
     #delete an item
     delete "/department/inventory/item/:id" do 
+        login_required
         @item = Item.find(params[:id])
         @item.delete
         redirect "/department/inventory/index"
