@@ -1,4 +1,4 @@
 <a href="/department/new"><button type="submit">Create A New Department</button></a>
 <% Department.all.each do |department| %>
-    <h1><a href="/department/<%= department.id %>/inventory/index"><%= department.name.titlecase %></a></h1>
+    <h1><a href="/department/<%= department.id %>"><%= department.name.titlecase %></a></h1>
 <% end %>
