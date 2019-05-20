@@ -1,8 +1,18 @@
+<div id="overlay" class="overlay">
+    <div class="center">
+        <form action="/department/<%= @department.id %>" method="post">
+            <p>Are you sure you want to delete <%= @department.name %> department?</p>
+            <input type="hidden" name="_method" value="delete">
+            Click <input class="delete" type="submit" value="Delete Department"> 
+        </form>to permanently delete.
+        <p> 
+        <p>Click anywhere else to cancel.</p> 
+    </div>
+</div>
+
 <h1><%= @department.name.titlecase %></h1>
 <a href="/department/<%= @department.id %>/edit"><button type="submit">Change Deptartment Name</button></a>
-<form action="/department/<%= @department.id %>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input class="delete" type="submit" value="Delete Department">
-</form>
+
 
 <a href="/department/<%= @department.id %>/inventory/index"><button type="submit">View Department Inventory</button></a>
+<input id="delete" class="delete" type="submit" value="Delete Department">
