@@ -20,11 +20,6 @@ class ApplicationController < Sinatra::Base
       @current_user ||= User.find_by(username: session[:username])
     end
 
-    def department(department_name) 
-      department = Department.find_by(name: department_name)
-      department.id
-    end
-
     def item_exists?(item_name)
       current_user.items.each do |item|
         if item_name == item.name 
