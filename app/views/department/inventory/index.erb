@@ -1,0 +1,22 @@
+<a class="add-new-item" href="/department/<%= @department.id %>/inventory/new"><button type="button">Add a new item</button></a>
+<p>
+    <table>
+        <thead>
+            <tr>
+                <th colspan="1">Name</th>
+                <th colspan="1">Quantity</th>
+                <th colspan="1">Details</th>
+                <th colspan="1">Department</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @department.items.all.each do |item| %>
+                <tr>
+                    <td><a href="/department/inventory/item/<%= item.id %>"><%= item.name.titlecase %></a></td>
+                    <td><%= item.quantity %></td>
+                    <td><%= item.details.capitalize %></td>
+                    <td><%= @department.name.capitalize %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>

@@ -2,80 +2,51 @@ class ItemsController < ApplicationController
     #add item to department inventory
     get "/department/:id/inventory/new" do 
         @department = Department.find(params[:id])
-        erb :"/items/new"
+        erb :"department/inventory/new"
     end
 
     post "/department/inventory/new" do 
         @department = Department.find_by(name: params[:department_name])
         @item = Item.create(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
-        redirect "/department/show/#{@department.id}"
+        redirect "/department/#{@department.id}/inventory/index"
     end
 
-    #add item to inventory
-    get "/items/new" do 
-        erb :"/items/new"
+    #view department's inventory
+    get "/department/:id/inventory/index" do 
+        @department = Department.find(params[:id])
+        erb :"/department/inventory/index"
     end
 
-    post "/items/new" do 
-        #create item
-        @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: department(params[:department_name]))
-        # item_exists?(@item.name) 
-
-        if @item.save
-            redirect "/inventory/index"
-            # redirect "/inventory/index/#{current_user.id}"
-        else
-            flash[:error] = "Couldn't add item: #{@item.errors.full_messages.to_sentence}"
-            redirect "/items/new"
-        end
-    end
-
-    #view all items in user's inventory
-    get "/inventory/index" do 
-        # @user = User.find(params[:id])
-        erb :"/items/index"
-    end
-
+    #view item details
     get "/department/inventory/item/:id" do 
         @item = Item.find(params[:id])
         @department = Department.find(@item.department.id)
-        erb :"/items/show"
+        erb :"/department/inventory/show"
     end
 
-    patch "/department/inventory/item/:id" do 
+    #update item details
+    patch "/department/inventory/item/:id/edit" do 
         @item = Item.find(params[:id])
         @department = Department.find(@item.department.id)
+        #get all department inventory except for the currently selected item
+        department_inventory = @department.items.all.map{|item| item if item.name != @item.name}
+        department_inventory.each do |item|
+            #if the updated item name matches another item in this department's inventory
+            if item && item.name == params[:name]
+                #don't update and do redirect back to the index with a flash message
+                flash[:error] = "Couldn't add item: Item already in inventory."
+                redirect "/department/#{@department.id}/inventory/index"
+            end
+        end
         @item.update(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
-        redirect "/department/inventory/show" 
+        redirect "/department/#{@department.id}/inventory/index" 
     end
-
-    #view individual items' show page
-    get "/inventory/item/:id" do 
-        @item = Item.find(params[:id])
-        erb :"/items/show"
-    end
-
-    #update an item 
-    patch "/inventory/item/:id/edit" do 
-        @item = Item.find(params[:id])
-        # my_items = current_user.items.map{|item| item if item.name != @item.name}
-        # my_items.each do |item|
-        #     if item && item.name == params[:name]
-        #         flash[:error] = "Couldn't add item: Item already in inventory."
-        #         redirect "/inventory/item/#{@item.id}"
-        #     end
-        # end
-        @item.update(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: department(params[:department_name]))
-        redirect "/inventory/index"
-        # redirect "/inventory/index/#{current_user.id}"
-    end
-
 
     #delete an item
-    delete "/inventory/item/:id" do 
+    delete "/department/inventory/item/:id" do 
         @item = Item.find(params[:id])
         @item.delete
-        redirect "/inventory/index/#{current_user.id}"
+        redirect "/department/inventory/index"
     end
 
 end
