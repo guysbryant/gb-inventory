@@ -18,7 +18,7 @@ TBA
 Please submit any issues and pull requests [here](https:/guysbryant/gb-inventory/tree/project-submission).
 
 ## Author
-[Guy Bryant](https://github.cmo/guysbryant)
+[Guy Bryant](https://github.com/guysbryant)
 
 ## License
 This project is licensed under the MIT License which you can view by opening the LICENSE file included in the root directory of this repository.
