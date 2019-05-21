@@ -15,7 +15,7 @@ TBA
 
 ## Contributions
 
-Please submit any issues and pull requests [here](https:/github.com/guysbryant/gb-inventory/tree/project-submission).
+Please submit any issues and pull requests [here](https:/guysbryant/gb-inventory/tree/project-submission).
 
 ## Author
 [Guy Bryant](https://github.cmo/guysbryant)
