@@ -10,6 +10,7 @@ class DepartmentController < ApplicationController
         priveleged?
         @department = Department.new(name: params[:name])
         if @department.save
+            current_user.departments << @department
             redirect "/department/#{@department.id}"
         else
             flash[:error] = "Couldn't create department: #{@department.errors.full_messages.to_sentence}"
