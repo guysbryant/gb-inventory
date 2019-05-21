@@ -11,8 +11,9 @@
 </div>
 
 <h1><%= @department.name.titlecase %></h1>
-<a href="/department/<%= @department.id %>/edit"><button type="submit">Change Deptartment Name</button></a>
-
-
 <a href="/department/<%= @department.id %>/inventory/index"><button type="submit">View Department Inventory</button></a>
-<input id="delete" class="delete" type="submit" value="Delete Department">
+
+<% if access_granted? %>
+    <a href="/department/<%= @department.id %>/edit"><button type="submit">Change Deptartment Name</button></a>
+    <input id="delete" class="delete" type="submit" value="Delete Department">
+<% end %>

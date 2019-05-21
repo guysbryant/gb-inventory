@@ -12,6 +12,21 @@
 
 
 <h2><%= @user.username.titlecase %></h2>
+<h3>Access Level:</h3>
+<form action="/user/<%= @user.id %>/edit" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input id="management_access" type="radio" name="access_level" value="0" 
+        <% if @user.access_level == 0 %>
+            checked
+        <% end %>>
+    <label for="management_access">Management</label>
+    <input id="basic_access" type="radio" name="access_level" value="1"
+        <% if @user.access_level != 0 %>
+            checked
+    <% end %>> 
+    <label for="basic_access">Basic User</label>
+    <input type="submit" value="Update Access">
+</form>
 <input id="delete" class="delete" type="submit" value="Delete User">
 
 <h3>Departments</h3>
@@ -19,14 +34,6 @@
 <form action="/user/<%= @user.id %>/departments" method="post">
     <input type="hidden" name="_method" value="patch">
     <% Department.all.each do |department| %> 
-        <p>
-        <input id="<%= department.id %>" type="checkbox" name="departments[]" value="<%= department.id %>" 
-            <% if @user.departments.include?(department) %>
-                checked
-            <% end %> 
-            >
-        <label for="<%= department.id %>"><%= department.name %></label>
-    <% end %>
-    <p>
+        <p> <input id="<%= department.id %>" type="checkbox" name="departments[]" value="<%= department.id %>" <% if @user.departments.include?(department) %> checked <% end %> > <label for="<%= department.id %>"><%= department.name %></label> <% end %> <p>
     <input type="submit" value="Update Department Access">
 </form>

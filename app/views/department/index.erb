@@ -1,7 +1,8 @@
 <h2>Department List</h2>
-<a href="/department/new"><button type="submit">Create A New Department</button></a>
-<% Department.all.each do |department| %>
-    <% if current_user.departments.include?(department) %>
+<% if access_granted?%>
+    <a href="/department/new"><button type="submit">Create A New Department</button></a>
+<% end %>
+
+<% current_user.departments.each do |department| %>
     <h1><a href="/department/<%= department.id %>"><%= department.name.titlecase %></a></h1>
-    <% end %>
 <% end %>

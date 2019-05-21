@@ -21,6 +21,9 @@
       <a href="/logout">Logout</a>
       <a href="/department/index">Department Listing</a>
     <% end %>
+    <% if access_granted? %>
+      <a href="/control-panel">Control Panel</a>
+    <% end %>
   </nav>
     <div class="wrapper">
     <% if flash[:error] %>

@@ -43,5 +43,13 @@ class ApplicationController < Sinatra::Base
         redirect "/"
       end
     end
+
+    def access_granted?
+      current_user.access_level == 0 if logged_in?
+    end
+
+    def priveleged? 
+      redirect "/department/index" unless access_granted?
+    end
   end
 end

@@ -1,11 +1,13 @@
 class DepartmentController < ApplicationController
     get "/department/new" do 
         login_required
+        priveleged?
         erb :"department/new"
     end
 
     post "/department/new" do 
         login_required
+        priveleged?
         @department = Department.new(name: params[:name])
         if @department.save
             redirect "/department/#{@department.id}"
@@ -28,6 +30,7 @@ class DepartmentController < ApplicationController
     end
     
     get "/department/:id/edit" do 
+        priveleged?
         login_required
         @department = Department.find(params[:id])
         erb :"/department/update"
@@ -35,6 +38,7 @@ class DepartmentController < ApplicationController
 
     patch "/department/:id/edit" do 
         login_required
+        priveleged?
         @department = Department.find(params[:id])
         Department.all.each do |department|
             if department && department.name == params[:name]
@@ -48,6 +52,7 @@ class DepartmentController < ApplicationController
 
     delete "/department/:id" do 
         login_required
+        priveleged?
         @department = Department.find(params[:id])
         @department.delete
         redirect "department/index"
