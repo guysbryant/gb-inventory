@@ -1,0 +1,32 @@
+<div id="overlay" class="overlay">
+    <div class="center">
+        <form action="/user/<%= @user.id %>" method="post">
+        <p>Are you sure you want to delete <%= @user.username.titlecase %>?</p>
+            <input type="hidden" name="_method" value="delete">
+            Click <input class="delete" type="submit" value="Delete">
+        </form> to permanently delete.
+        <p>
+        <p>Click anywhere else to cancel.</p>
+    </div>
+</div>
+
+
+<h2><%= @user.username.titlecase %></h2>
+<input id="delete" class="delete" type="submit" value="Delete User">
+
+<h3>Departments</h3>
+<p>Select the deparments this user can access:</p>
+<form action="/user/<%= @user.id %>/departments" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <% Department.all.each do |department| %> 
+        <p>
+        <input id="<%= department.id %>" type="checkbox" name="departments[]" value="<%= department.id %>" 
+            <% if @user.departments.include?(department) %>
+                checked
+            <% end %> 
+            >
+        <label for="<%= department.id %>"><%= department.name %></label>
+    <% end %>
+    <p>
+    <input type="submit" value="Update Department Access">
+</form>

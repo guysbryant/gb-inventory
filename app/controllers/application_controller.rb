@@ -12,12 +12,13 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    if session[:username]
+    if logged_in?
       redirect "/department/index"
     else
       erb :welcome
     end
   end
+
 
   helpers do 
     def current_user
@@ -31,6 +32,14 @@ class ApplicationController < Sinatra::Base
     def login_required
       if !logged_in? 
         flash[:error] = "Must be logged in"
+        redirect "/"
+      end
+    end
+
+    def authorized?(id)
+      @department = Department.find(id)
+      if !current_user.departments.include?(@department)
+        flash[:error] = "Not authorized to access this department"
         redirect "/"
       end
     end

@@ -22,6 +22,7 @@ class DepartmentController < ApplicationController
 
     get "/department/:id" do 
         login_required
+        authorized?(params[:id])
         @department = Department.find(params[:id])
         erb :"/department/show"
     end
