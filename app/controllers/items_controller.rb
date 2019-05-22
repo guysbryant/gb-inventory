@@ -2,13 +2,13 @@ class ItemsController < ApplicationController
     #add item to department inventory
     get "/department/:id/inventory/new" do 
         login_required
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         erb :"department/inventory/new"
     end
 
     post "/department/:id/inventory/new" do 
         login_required
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
         @department.items.all.each do |item|
             if item && @item.name == item.name
@@ -23,23 +23,23 @@ class ItemsController < ApplicationController
     #view department's inventory
     get "/department/:id/inventory/index" do 
         login_required
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         erb :"/department/inventory/index"
     end
 
     #view item details
     get "/department/inventory/item/:id" do 
         login_required
-        @item = Item.find(params[:id])
-        @department = Department.find(@item.department.id)
+        get_item(params[:id])
+        get_department(@item.department.id)
         erb :"/department/inventory/show"
     end
 
     #update item details
     patch "/department/inventory/item/:id/edit" do 
         login_required
-        @item = Item.find(params[:id])
-        @department = Department.find(@item.department.id)
+        get_item(params[:id])
+        get_department(@item.department.id)
         #get all department inventory except for the currently selected item
         department_inventory = @department.items.all.map{|item| item if item.name != @item.name}
         department_inventory.each do |item|
@@ -57,8 +57,8 @@ class ItemsController < ApplicationController
     #delete an item
     delete "/department/inventory/item/:id" do 
         login_required
-        @item = Item.find(params[:id])
-        @department = Department.find_by(@item.department.id)
+        get_item(params[:id])
+        get_department(@item.department.id)
         @item.delete
         redirect "/department/#{@department.id}/inventory/index"
     end

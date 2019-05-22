@@ -26,21 +26,21 @@ class DepartmentController < ApplicationController
     get "/department/:id" do 
         login_required
         authorized?(params[:id])
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         erb :"/department/show"
     end
     
     get "/department/:id/edit" do 
         priveleged?
         login_required
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         erb :"/department/update"
     end
 
     patch "/department/:id/edit" do 
         login_required
         priveleged?
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         Department.all.each do |department|
             if department && department.name == params[:name]
                 flash[:error] = "That department already exists."
@@ -54,7 +54,7 @@ class DepartmentController < ApplicationController
     delete "/department/:id" do 
         login_required
         priveleged?
-        @department = Department.find(params[:id])
+        get_department(params[:id])
         @department.delete
         redirect "department/index"
     end

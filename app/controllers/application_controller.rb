@@ -50,5 +50,17 @@ class ApplicationController < Sinatra::Base
     def priveleged? 
       redirect "/department/index" unless access_granted?
     end
+
+    def get_user(id)
+      @user = User.find(id)
+    end
+
+    def get_item(id)
+      @item = Item.find(id)
+    end
+
+    def get_department(id)
+        @department = Department.find(id)
+    end
   end
 end
