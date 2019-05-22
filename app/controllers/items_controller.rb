@@ -9,7 +9,14 @@ class ItemsController < ApplicationController
     post "/department/:id/inventory/new" do 
         login_required
         @department = Department.find(params[:id])
-        @item = Item.create(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
+        @item = Item.new(name: params[:name], quantity: params[:quantity], details: params[:details], department_id: @department.id)
+        @department.items.all.each do |item|
+            if item && @item.name == item.name
+                flash[:error] = "Couldn't add item: Item already in inventory."
+                redirect "/department/#{@department.id}/inventory/index"
+            end
+        end
+        @item.save
         redirect "/department/#{@department.id}/inventory/index"
     end
 
