@@ -35,8 +35,13 @@ class ApplicationController < Sinatra::Base
       end
     end
 
+    def login_and_priveleged_access_required
+        login_required
+        priveleged?
+    end
+
     def authorized?(id)
-      @department = Department.find(id)
+      get_department(id)
       if !current_user.departments.include?(@department)
         flash[:error] = "Not authorized to access this department"
         redirect "/"
@@ -48,6 +53,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def priveleged? 
+      flash[:error] = "You don't have the necessary priveleges to access this content."
       redirect "/department/index" unless access_granted?
     end
 
@@ -61,6 +67,11 @@ class ApplicationController < Sinatra::Base
 
     def get_department(id)
         @department = Department.find(id)
+    end
+
+    def get_item_and_department(item)
+        get_item(item)
+        get_department(@item.department.id)
     end
   end
 end

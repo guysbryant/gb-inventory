@@ -1,6 +1,6 @@
 class UserController < ApplicationController
     get "/control-panel" do 
-        priveleged?
+        login_and_priveleged_access_required
         erb :"control-panel"
     end
 
@@ -14,20 +14,20 @@ class UserController < ApplicationController
     end
 
     get "/user/:id" do 
-        priveleged?
+        login_and_priveleged_access_required
         get_user(params[:id])
         erb :"/user/show"
     end
 
     delete "/user/:id" do 
-        priveleged?
+        login_and_priveleged_access_required
         get_user(params[:id])
         @user.delete 
         redirect "/control-panel"
     end
 
     patch "/user/:id/edit" do 
-        priveleged?
+        login_and_priveleged_access_required
         get_user(params[:id])
         @user.access_level = params[:access_level]
         @user.save
@@ -35,12 +35,12 @@ class UserController < ApplicationController
     end
 
     patch "/user/:id/departments" do 
-        priveleged?
+        login_and_priveleged_access_required
         get_user(params[:id])
         @user.departments.clear
-        params[:departments].each do |department|
-            @user.departments << Department.find(department)
-        end
+            params[:departments].each do |department|
+                @user.departments << Department.find(department)
+            end if params[:departments]
         @user.save
         redirect "/user/#{@user.id}"
     end

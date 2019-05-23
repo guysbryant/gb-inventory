@@ -30,16 +30,14 @@ class ItemsController < ApplicationController
     #view item details
     get "/department/inventory/item/:id" do 
         login_required
-        get_item(params[:id])
-        get_department(@item.department.id)
+        get_item_and_department(params[:id])
         erb :"/department/inventory/show"
     end
 
     #update item details
     patch "/department/inventory/item/:id/edit" do 
         login_required
-        get_item(params[:id])
-        get_department(@item.department.id)
+        get_item_and_department(params[:id])
         #get all department inventory except for the currently selected item
         department_inventory = @department.items.all.map{|item| item if item.name != @item.name}
         department_inventory.each do |item|
@@ -57,8 +55,7 @@ class ItemsController < ApplicationController
     #delete an item
     delete "/department/inventory/item/:id" do 
         login_required
-        get_item(params[:id])
-        get_department(@item.department.id)
+        get_item_and_department(params[:id])
         @item.delete
         redirect "/department/#{@department.id}/inventory/index"
     end
